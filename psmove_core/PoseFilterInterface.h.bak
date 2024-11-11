@@ -1,0 +1,174 @@
+#ifndef POSE_FILTER_INTERFACE_H
+#define POSE_FILTER_INTERFACE_H
+
+#include <Eigen/Core>
+#include <Eigen/Geometry>
+#include <chrono>
+#include "DeviceInterface.h"  // 确保这个文件包含了所有必要的类型定义
+
+// 保留常量定义
+extern const Eigen::Matrix3f k_eigen_identity_pose_upright;
+extern const Eigen::Matrix3f k_eigen_identity_pose_laying_flat;
+extern const Eigen::Matrix3f k_eigen_sensor_transform_identity;
+extern const Eigen::Matrix3f k_eigen_sensor_transform_opengl;
+
+#define k_g_units_to_gal  980.665000f
+#define k_g_units_to_ms2  9.80665000f
+#define k_ms2_to_g_units  1.f/9.80665000f
+#define k_meters_to_centimeters  100.f
+#define k_centimeters_to_meters  0.01f
+
+// 保留必要的结构体定义
+struct ExponentialCurve
+{
+    float A;
+    float B;
+    float MaxValue;
+
+    inline float evaluate(float x) const
+    {
+        return fminf(A*exp(B*x), MaxValue);
+    }
+
+    inline void clear()
+    {
+        A = 0.f;
+        B = 0.f;
+        MaxValue = 1.f;
+    }
+};
+
+struct PoseSensorPacket
+{
+    std::chrono::time_point<std::chrono::high_resolution_clock> timestamp;
+    // ... (保留原始定义)
+    void clear() { /* 实现清理逻辑 */ }
+};
+
+struct PoseFilterPacket : PoseSensorPacket
+{
+    // ... (保留原始定)
+    void clear() { /* 实现清理逻辑 */ }
+};
+
+class PoseFilterSpace
+{
+public:
+    // ... (保留原始定义)
+    void setIdentityGravity(const Eigen::Vector3f& gravity) { /* 实现 */ }
+    void setIdentityMagnetometer(const Eigen::Vector3f& mag) { /* 实现 */ }
+    void setCalibrationTransform(const Eigen::Matrix3f& transform) { /* 实现 */ }
+    void setSensorTransform(const Eigen::Matrix3f& transform) { /* 实现 */ }
+    Eigen::Vector3f getGravityCalibrationDirection() const { return Eigen::Vector3f::Zero(); }
+    Eigen::Vector3f getMagnetometerCalibrationDirection() const { return Eigen::Vector3f::Zero(); }
+    void createFilterPacket(const PoseSensorPacket & sensor_packet, const IPoseFilter* pose_filter, PoseFilterPacket & out_filter_packet) const { /* 实现 */ }
+};
+
+struct PoseFilterConstants 
+{
+    struct {
+        CommonDeviceTrackingShape tracking_shape;
+        // ... 其他成员
+    } orientation_constants;
+
+    struct {
+        // ... 成员
+    } position_constants;
+
+    void clear() { /* 实现清理逻辑 */ }
+};
+
+struct PositionFilterConstants 
+{
+    struct {
+        // ... 成员
+    } orientation_constants;
+
+    struct {
+        // ... 成员
+    } position_constants;
+
+    void clear() { /* 实现清理逻辑 */ }
+};
+
+struct PoseFilterConstants 
+{
+    struct {
+        CommonDeviceTrackingShape tracking_shape;
+        // ... 其他成员
+    } orientation_constants;
+
+    struct {
+        // ... 成员
+    } position_constants;
+
+    void clear() { /* 实现清理逻辑 */ }
+};
+
+// 保留接口定义
+class IStateFilter
+{
+public:
+    // ... (保留原始定义)
+};
+
+class IOrientationFilter : public IStateFilter
+{
+public:
+    // ... (保留原始定义)
+};
+
+class IPositionFilter : public IStateFilter
+{
+public:
+    // ... (保留原始定义)
+};
+
+class IPoseFilter;
+
+class PoseFilterSpace {
+public:
+    void setIdentityGravity(const Eigen::Vector3f& gravity) { /* 实现 */ }
+    void setIdentityMagnetometer(const Eigen::Vector3f& mag) { /* 实现 */ }
+    void setCalibrationTransform(const Eigen::Matrix3f& transform) { /* 实现 */ }
+    void setSensorTransform(const Eigen::Matrix3f& transform) { /* 实现 */ }
+    Eigen::Vector3f getGravityCalibrationDirection() const { return Eigen::Vector3f::Zero(); }
+    Eigen::Vector3f getMagnetometerCalibrationDirection() const { return Eigen::Vector3f::Zero(); }
+    void createFilterPacket(const PoseSensorPacket& sensor_packet, const IPoseFilter* pose_filter, PoseFilterPacket& out_filter_packet) const { /* 实现 */ }
+};
+
+class IPoseFilter : public IStateFilter
+{
+public:
+    // ... (保留原始定义)
+
+    virtual Eigen::Quaternionf getOrientation(float prediction_time) const = 0;
+    virtual Eigen::Vector3f getPositionCm(float prediction_time) const = 0;
+
+    // ... 其他现有方法 ...
+
+    virtual ~IPoseFilter() {}
+    virtual void update(float delta_time, const PoseFilterPacket& packet) = 0;
+    virtual bool getIsOrientationStateValid() const = 0;
+    virtual bool getIsPositionStateValid() const = 0;
+    virtual Eigen::Vector3f getAngularVelocityRadPerSec() const = 0;
+    virtual Eigen::Vector3f getAngularAccelerationRadPerSecSqr() const = 0;
+    virtual Eigen::Vector3f getVelocityCmPerSec() const = 0;
+    virtual Eigen::Vector3f getAccelerationCmPerSecSqr() const = 0;
+    virtual void recenterOrientation(const Eigen::Quaternionf& q) = 0;
+    // ... 其他方法 ...
+
+    // 添加新的虚函数
+    virtual void updateOpticalData(const OpticalData& optical_data) = 0;
+    virtual void updateIMUData(const IMUData& imu_data) = 0;
+    virtual void predict() = 0;
+};
+
+struct OpticalData {
+    // 定义光学数据结构
+    Eigen::Vector3f position;
+    Eigen::Quaternionf orientation;
+    // 可以添加其他需要的字段
+};
+
+#endif // POSE_FILTER_INTERFACE_H

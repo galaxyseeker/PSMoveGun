@@ -1,0 +1,10 @@
+^C:\USERS\GALAX\DESKTOP\PSMOVEGUN\PROGRAMS\PSMOVEGUNPROJ\BUILD\CMAKEFILES\FF8378651C9131DC1BE58452ED2B8B39\GENERATE.STAMP.RULE
+setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -SC:/Users/galax/Desktop/PSMoveGun/Programs/PSMoveGunProj -BC:/Users/galax/Desktop/PSMoveGun/Programs/PSMoveGunProj/build --check-stamp-list CMakeFiles/generate.stamp.list --vs-solution-file C:/Users/galax/Desktop/PSMoveGun/Programs/PSMoveGunProj/build/PSMoveGun.sln
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd

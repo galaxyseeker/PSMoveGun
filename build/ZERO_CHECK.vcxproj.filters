@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="17.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <CustomBuild Include="C:\Users\galax\Desktop\PSMoveGun\Programs\PSMoveGunProj\build\CMakeFiles\ff8378651c9131dc1be58452ed2b8b39\generate.stamp.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="CMake Rules">
+      <UniqueIdentifier>{FF37DAEC-0529-37E8-9475-9365649BE0F6}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

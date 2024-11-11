@@ -1,0 +1,6 @@
+C:/Users/galax/Desktop/PSMoveGun/Programs/PSMoveGunProj/build/psmove_gun.dir/Debug/psmove_data_fetcher.obj
+C:/Users/galax/Desktop/PSMoveGun/Programs/PSMoveGunProj/build/psmove_gun.dir/Debug/ServerControllerView.obj
+C:/Users/galax/Desktop/PSMoveGun/Programs/PSMoveGunProj/build/psmove_gun.dir/Debug/ServerDeviceView.obj
+C:/Users/galax/Desktop/PSMoveGun/Programs/PSMoveGunProj/build/psmove_gun.dir/Debug/PSMoveControllerDeviceInterface.obj
+C:/Users/galax/Desktop/PSMoveGun/Programs/PSMoveGunProj/build/psmove_gun.dir/Debug/DeviceManager.obj
+C:/Users/galax/Desktop/PSMoveGun/Programs/PSMoveGunProj/build/psmove_gun.dir/Debug/LoggerUtil.obj

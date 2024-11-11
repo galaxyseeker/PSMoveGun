@@ -1,0 +1,48 @@
+#include "ServerDeviceView.h"
+
+ServerDeviceView::ServerDeviceView(const int device_id)
+    : m_deviceID(device_id)
+    , m_bHasUnpublishedState(false)
+    , m_pollNoDataCount(0)
+    , m_sequence_number(0)
+{
+}
+
+ServerDeviceView::~ServerDeviceView()
+{
+}
+
+bool ServerDeviceView::open(const DeviceEnumerator *enumerator)
+{
+    // 基类实现，可能需要在子类中重写
+    return false;
+}
+
+void ServerDeviceView::close()
+{
+    // 基类实现，可能需要在子类中重写
+}
+
+bool ServerDeviceView::poll()
+{
+    // 基类实现，可能需要在子类中重写
+    return false;
+}
+
+void ServerDeviceView::publish()
+{
+    // 基类实现，可能需要在子类中重写
+}
+
+bool ServerDeviceView::matchesDeviceEnumerator(const DeviceEnumerator *enumerator) const
+{
+    // 基类实现，可能需要在子类中重写
+    return false;
+}
+
+bool ServerDeviceView::getIsOpen() const
+{
+    // 这里应该有逻辑来检查设备是否打开
+    // 现在我们只是返回 true
+    return true;
+}

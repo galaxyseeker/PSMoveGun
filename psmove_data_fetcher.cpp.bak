@@ -1,0 +1,62 @@
+#include <pybind11/pybind11.h>
+#include <pybind11/stl.h>
+#include "psmove_core/ServerControllerView.h"
+//#include "psmove_core/ControllerManager.h"
+#include "psmove_core/DeviceInterface.h"
+
+namespace py = pybind11;
+
+class PSMoveDataFetcher {
+public:
+
+    PSMoveDataFetcher() : m_controller_view(nullptr) {
+        m_controller_manager = new ControllerManager();
+    }
+
+    ~PSMoveDataFetcher() {
+        if (m_controller_view) {
+            delete m_controller_view;
+        }
+        delete m_controller_manager;
+    }
+
+    bool initialize() {
+        // 初始化代码...
+        return true;
+    }
+
+    py::dict get_pose_data() {
+        if (!m_controller_view) {
+            throw std::runtime_error("Controller not initialized.");
+        }
+
+        CommonDevicePose pose = m_controller_view->getFilteredPose(0.0f); // 使用0预测时间
+
+        py::dict result;
+        py::dict orientation;
+        orientation["w"] = pose.Orientation.w;
+        orientation["x"] = pose.Orientation.x;
+        orientation["y"] = pose.Orientation.y;
+        orientation["z"] = pose.Orientation.z;
+        result["orientation"] = orientation;
+
+        py::dict position;
+        position["x"] = pose.PositionCm.x;
+        position["y"] = pose.PositionCm.y;
+        position["z"] = pose.PositionCm.z;
+        result["position"] = position;
+
+        return result;
+    }
+
+private:
+    ControllerManager* m_controller_manager;
+    ServerControllerView* m_controller_view;
+};
+
+PYBIND11_MODULE(psmove_data_fetcher, m) {
+    py::class_<PSMoveDataFetcher>(m, "PSMoveDataFetcher")
+        .def(py::init<>())
+        .def("initialize", &PSMoveDataFetcher::initialize)
+        .def("get_pose_data", &PSMoveDataFetcher::get_pose_data);
+}

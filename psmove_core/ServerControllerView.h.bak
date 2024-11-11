@@ -1,0 +1,31 @@
+#ifndef SERVER_CONTROLLER_VIEW_H
+#define SERVER_CONTROLLER_VIEW_H
+
+#include "ServerDeviceView.h"
+#include "PoseFilterInterface.h"
+#include "DeviceInterface.h"
+
+class ControllerManager;
+class TrackerManager;
+
+class ServerControllerView : public ServerDeviceView
+{
+public:
+    ServerControllerView(int device_id);
+    virtual ~ServerControllerView();
+
+    bool open(const class DeviceEnumerator *enumerator) override;
+    void close() override;
+    //取得滤波后的姿态数据
+    CommonDevicePose getFilteredPose(float prediction_time) const;
+    //取得控制器状态
+    //const CommonControllerState *getState() const;
+
+    // 其他必要的方法...
+
+private:
+    IPoseFilter *m_pose_filter;
+    // 其他必要的成员变量...
+};
+
+#endif // SERVER_CONTROLLER_VIEW_H

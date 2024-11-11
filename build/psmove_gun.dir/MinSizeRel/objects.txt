@@ -1,0 +1,6 @@
+C:/Users/galax/Desktop/PSMoveGun/Programs/PSMoveGunProj/build/psmove_gun.dir/MinSizeRel/psmove_data_fetcher.obj
+C:/Users/galax/Desktop/PSMoveGun/Programs/PSMoveGunProj/build/psmove_gun.dir/MinSizeRel/ServerControllerView.obj
+C:/Users/galax/Desktop/PSMoveGun/Programs/PSMoveGunProj/build/psmove_gun.dir/MinSizeRel/ServerDeviceView.obj
+C:/Users/galax/Desktop/PSMoveGun/Programs/PSMoveGunProj/build/psmove_gun.dir/MinSizeRel/PSMoveControllerDeviceInterface.obj
+C:/Users/galax/Desktop/PSMoveGun/Programs/PSMoveGunProj/build/psmove_gun.dir/MinSizeRel/DeviceManager.obj
+C:/Users/galax/Desktop/PSMoveGun/Programs/PSMoveGunProj/build/psmove_gun.dir/MinSizeRel/LoggerUtil.obj

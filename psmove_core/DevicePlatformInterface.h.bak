@@ -1,0 +1,41 @@
+#ifndef DEVICE_PLATFORM_INTERFACE_H
+#define DEVICE_PLATFORM_INTERFACE_H
+
+#include <string>
+
+// 基本的设备枚举器接口
+class DeviceEnumerator
+{
+public:
+    virtual ~DeviceEnumerator() {}
+
+    virtual bool next() = 0;
+    virtual bool valid() const = 0;
+    virtual const char *get_path() const = 0;
+    virtual int get_vendor_id() const = 0;
+    virtual int get_product_id() const = 0;
+    virtual const char* get_serial() const = 0;
+    virtual const char* get_device_type_string() const = 0;
+};
+
+// HID设备接口
+class HidDeviceInterface
+{
+public:
+    virtual ~HidDeviceInterface() {}
+
+    virtual bool open(const char *path) = 0;
+    virtual void close() = 0;
+    virtual bool isOpen() const = 0;
+    virtual int write(const unsigned char *data, int length) = 0;
+    virtual int read(unsigned char *data, int length) = 0;
+    virtual std::string getSerial() const = 0;
+};
+
+// 创建设备枚举器的工厂函数声明
+DeviceEnumerator* create_device_enumerator();
+
+// 创建HID设备接口的工厂函数声明
+HidDeviceInterface* create_hid_device_interface();
+
+#endif // DEVICE_PLATFORM_INTERFACE_H

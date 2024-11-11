@@ -1,0 +1,87 @@
+classDiagram
+    class PSMoveService {
+        -ProgramSettings m_settings
+        -static PSMoveService* m_instance
+        +exec(argc, argv)
+        +PSMoveService()
+        +~PSMoveService()
+    }
+
+    class PSMoveServiceImpl {
+        -boost::asio::io_service m_io_service
+        -boost::asio::signal_set m_signals
+        -USBDeviceManager m_usb_device_manager
+        -DeviceManager m_device_manager
+        -ServerRequestHandler m_request_handler
+        -ServerNetworkManager m_network_manager
+        -std::shared_ptr status m_status
+        +operator()(context)
+        +stop(context)
+        +pause(context)
+        +resume(context)
+        -startup()
+        -update()
+        -shutdown()
+    }
+
+    class PSMController {
+        +ControllerID
+        +ControllerType
+        +ControllerHand
+        +ControllerSerial
+        +ParentControllerSerial
+        +ControllerState
+        +bValid
+        +OutputSequenceNum
+        +InputSequenceNum
+        +IsConnected
+    }
+
+    class PSMoveMouseController {
+        -sensitivity
+        -running
+        -controller_id
+        +__init__()
+        +get_controller_list()
+        +run()
+        +set_sensitivity()
+        +stop()
+    }
+
+    class SettingsGUI {
+        -controller
+        -root
+        -sensitivity_label
+        -sensitivity_scale
+        -quit_button
+        +__init__(controller)
+        +update_sensitivity()
+        +quit()
+        +run()
+    }
+
+    class DeviceManager {
+        +startup()
+        +update()
+        +shutdown()
+    }
+
+    class ServerRequestHandler {
+        +startup()
+        +update()
+        +shutdown()
+    }
+
+    class ServerNetworkManager {
+        +startup()
+        +update()
+        +shutdown()
+    }
+
+    PSMoveService --> PSMoveServiceImpl
+    PSMoveServiceImpl --> DeviceManager
+    PSMoveServiceImpl --> ServerRequestHandler
+    PSMoveServiceImpl --> ServerNetworkManager
+    PSMoveMouseController --> PSMController
+    PSMoveMouseController --> SettingsGUI
+    DeviceManager --> PSMController

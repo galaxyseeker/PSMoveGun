@@ -1,0 +1,8 @@
+2024-10-28 16:37:38 - INFO - Starting PSMove Gun test program
+2024-10-28 16:37:38 - INFO - PSMoveDataFetcher constructor called
+2024-10-28 16:37:38 - INFO - Initializing PSMoveDataFetcher
+2024-10-28 16:37:38 - INFO - Controller initialized successfully
+2024-10-28 16:37:38 - INFO - Fetcher initialized successfully.
+2024-10-28 16:37:38 - INFO - Controller connected: No
+2024-10-28 16:37:38 - INFO - PSMove Gun test program finished
+2024-10-28 16:37:38 - INFO - PSMoveDataFetcher destructor called
